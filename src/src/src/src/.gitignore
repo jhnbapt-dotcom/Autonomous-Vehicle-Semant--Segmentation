@@ -1,0 +1,25 @@
+# Dataset and archive files
+data/camvid/
+*.zip
+
+# Model checkpoints and outputs
+*.pth
+*.pt
+outputs/
+checkpoints/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Environment files
+.venv/
+venv/
+env/
+.env
+
+# Operating system files
+.DS_Store
