@@ -1,18 +1,25 @@
 # Autonomous Vehicle Semantic Segmentation
 
-Semantic segmentation project for autonomous-driving scenes using the CamVid dataset, PyTorch, and DeepLabV3 with a ResNet-50 backbone.
+A PyTorch project for semantic segmentation of autonomous-driving scenes using the CamVid dataset and DeepLabV3 with a ResNet-50 backbone.
 
-## Objective
+## Goal
 
-The model assigns a class label to every pixel in a road-scene image. Example classes include road, sky, building, vehicle, pedestrian, vegetation, and sidewalk.
+Semantic segmentation predicts a class for every pixel in a road-scene image. It helps autonomous vehicles distinguish road surfaces, cars, pedestrians, buildings, sky, vegetation, sidewalks, and other scene elements.
+
+## Model
+
+- Model: DeepLabV3
+- Backbone: ResNet-50
+- Framework: PyTorch and torchvision
+- Default number of classes: 11
+- Image size: 256 × 256
+- Loss: Cross-entropy loss with ignore index `255`
 
 ## Dataset
 
-This project uses CamVid image frames and semantic-label masks.
+This repository does **not** include CamVid files.
 
-The dataset is not included in this repository because it is too large. Store it locally, in Google Drive, or download it separately.
-
-Expected structure:
+The expected prepared structure is:
 
 ```text
 camvid/
@@ -27,32 +34,40 @@ camvid/
     └── labels/
 ```
 
-## Model
-
-- Architecture: DeepLabV3
-- Backbone: ResNet-50
-- Framework: PyTorch and torchvision
-- Default classes: 11
-- Input size: 256 × 256
+See [`data/README.md`](data/README.md) for dataset notes.
 
 ## Installation
 
 ```bash
+git clone [https://github.com/jhnbapt-dotcom/Autonomous-Vehicle-Semant--Segmentation.git](https://github.com/jhnbapt-dotcom/Autonomous-Vehicle-Semant--Segmentation.git)
+cd Autonomous-Vehicle-Semant--Segmentation
 pip install -r requirements.txt
 ```
 
 ## Training
 
+Run the following command after preparing your CamVid folders:
+
 ```bash
-python src/train.py --data_root /path/to/camvid --num_epochs 10
+python src/train.py \
+  --data_root /path/to/camvid \
+  --num_epochs 10 \
+  --batch_size 4
 ```
 
-## Repository structure
+The best model checkpoint is saved as:
+
+```text
+outputs/best_deeplabv3_camvid.pth
+```
+
+## Project structure
 
 ```text
 .
 ├── README.md
 ├── requirements.txt
+├── .gitignore
 ├── data/
 │   └── README.md
 └── src/
@@ -61,3 +76,11 @@ python src/train.py --data_root /path/to/camvid --num_epochs 10
     ├── model.py
     └── train.py
 ```
+
+## Next improvements
+
+- Verify the CamVid label-file naming convention.
+- Add mean Intersection over Union (mIoU) evaluation.
+- Add prediction visualization.
+- Add a notebook for Google Colab.
+- Add model inference for a single driving-scene image.
